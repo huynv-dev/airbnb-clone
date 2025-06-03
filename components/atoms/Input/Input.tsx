@@ -2,7 +2,6 @@
 
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { BiDollar } from 'react-icons/bi';
-import styles from './Input.module.css';
 import clsx from 'clsx';
 
 interface InputProps {
@@ -27,30 +26,34 @@ const Input: React.FC<InputProps> = ({
   errors,
 }) => {
   return (
-    <div className={styles.container}>
+    <div className="w-full relative">
       {formatPrice && (
         <BiDollar
           size={24}
-          className={styles.priceIcon}
+          className="text-neutral-700 absolute top-5 left-2"
+          data-testid="price-icon"
         />
       )}
       <input
         id={id}
+        type={type}
+        autoComplete="off"
         disabled={disabled}
         {...register(id, { required })}
         placeholder=" "
-        type={type}
         className={clsx(
-          styles.input,
-          formatPrice && styles.inputWithPrice,
-          errors[id] && styles.inputError
+          'peer w-full p-4 pt-6 font-light bg-white border rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed',
+          formatPrice ? 'pl-9' : 'pl-4',
+          errors[id] ? 'border-rose-500 focus:border-rose-500' : 'border-neutral-300 focus:border-black'
         )}
       />
       <label
+        htmlFor={id}
         className={clsx(
-          styles.label,
-          formatPrice && styles.labelWithPrice,
-          errors[id] && styles.labelError
+          'absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] scale-75',
+          formatPrice ? 'left-9' : 'left-4',
+          'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3',
+          errors[id] ? 'text-rose-500' : 'text-zinc-400'
         )}
       >
         {label}
@@ -59,4 +62,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input; 
+export default Input;

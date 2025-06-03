@@ -1,32 +1,29 @@
 'use client';
 
-import { Container, Logo } from "@/components/atoms";
-import Search from "./Search";
-import UserMenu from "./UserMenu";
-import { SafeUser } from "@/types";
-import Categories from "./Categories";  
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import { UserMenu } from '../index';
 
-interface NavbarProps {
-  currentUser?: SafeUser | null;
-}
+const Navbar = () => {
+  const router = useRouter();
 
-const Navbar: React.FC<NavbarProps> = ({
-  currentUser
-}) => {
+  const handleLogoClick = useCallback(() => {
+    router.push('/');
+  }, [router]);
+
   return (
-    <div className="fixed w-full bg-white z-10 shadow-sm">
-      <div className="py-4 border-b-[1px]">
-        <Container>
-          <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
-            <Logo />
-            <Search />
-            <UserMenu currentUser={currentUser} />
-          </div>
-        </Container>
+    <header className="w-full shadow-sm border-b">
+      <div className="container mx-auto flex justify-between items-center py-4 px-6">
+        <div
+          onClick={handleLogoClick}
+          className="text-2xl font-bold text-rose-500 cursor-pointer"
+        >
+          AirbnbClone
+        </div>
+        <UserMenu />
       </div>
-      <Categories />
-    </div>
+    </header>
   );
-}
+};
 
-export default Navbar; 
+export default Navbar;

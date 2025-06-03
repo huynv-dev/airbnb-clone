@@ -17,7 +17,6 @@ import useLoginModal from "@/hooks/useLoginModal";
 
 import Modal from "../Modal";
 import { Button, Input, Heading } from "@/components/atoms";
-import styles from './LoginModal.module.css';
 
 const LoginModal = () => {
   const router = useRouter();
@@ -28,9 +27,7 @@ const LoginModal = () => {
   const { 
     register, 
     handleSubmit,
-    formState: {
-      errors,
-    },
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       email: '',
@@ -38,8 +35,7 @@ const LoginModal = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = 
-  (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     signIn('credentials', { 
@@ -54,7 +50,7 @@ const LoginModal = () => {
         router.refresh();
         loginModal.onClose();
       }
-      
+
       if (callback?.error) {
         toast.error(callback.error);
       }
@@ -64,10 +60,10 @@ const LoginModal = () => {
   const onToggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  }, [loginModal, registerModal])
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
-    <div className={styles.bodyContent}>
+    <div className="flex flex-col gap-4">
       <Heading
         title="Welcome back"
         subtitle="Login to your account!"
@@ -90,10 +86,10 @@ const LoginModal = () => {
         required
       />
     </div>
-  )
+  );
 
   const footerContent = (
-    <div className={styles.footerContent}>
+    <div className="flex flex-col gap-4 mt-4">
       <hr />
       <Button 
         outline 
@@ -107,18 +103,19 @@ const LoginModal = () => {
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div className={styles.signupText}>
-        <p>First time using Airbnb?
+      <div className="text-neutral-500 text-center mt-4 font-light">
+        <p>
+          First time using Airbnb?
           <span
             onClick={onToggle}
-            className={styles.signupLink}
+            className="text-neutral-800 cursor-pointer hover:underline ml-1"
           >
             Create an account
           </span>
         </p>
       </div>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -134,4 +131,4 @@ const LoginModal = () => {
   );
 }
 
-export default LoginModal; 
+export default LoginModal;

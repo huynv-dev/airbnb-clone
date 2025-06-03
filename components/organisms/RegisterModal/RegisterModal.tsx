@@ -5,8 +5,8 @@ import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-import { 
-  FieldValues, 
+import {
+  FieldValues,
   SubmitHandler,
   useForm
 } from "react-hook-form";
@@ -17,19 +17,16 @@ import useLoginModal from "@/hooks/useLoginModal";
 
 import Modal from "../Modal";
 import { Button, Input, Heading } from "@/components/atoms";
-import styles from './RegisterModal.module.css';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { 
-    register, 
+  const {
+    register,
     handleSubmit,
-    formState: {
-      errors,
-    },
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       name: '',
@@ -42,26 +39,26 @@ const RegisterModal = () => {
     setIsLoading(true);
 
     axios.post('/api/register', data)
-    .then(() => {
-      toast.success('Registered!');
-      registerModal.onClose();
-      loginModal.onOpen();
-    })
-    .catch((error) => {
-      toast.error(error.message);
-    })
-    .finally(() => {
-      setIsLoading(false);
-    })
-  }
+      .then(() => {
+        toast.success('Registered!');
+        registerModal.onClose();
+        loginModal.onOpen();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
-  }, [registerModal, loginModal])
+  }, [registerModal, loginModal]);
 
   const bodyContent = (
-    <div className={styles.bodyContent}>
+    <div className="flex flex-col gap-4">
       <Heading
         title="Welcome to Airbnb"
         subtitle="Create an account!"
@@ -92,35 +89,36 @@ const RegisterModal = () => {
         required
       />
     </div>
-  )
+  );
 
   const footerContent = (
-    <div className={styles.footerContent}>
+    <div className="flex flex-col gap-4 mt-6">
       <hr />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn('google')}
       />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Continue with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div className={styles.loginText}>
-        <p>Already have an account?
+      <div className="text-neutral-500 text-center mt-4 font-light text-sm">
+        <p>
+          Already have an account?
           <span
             onClick={onToggle}
-            className={styles.loginLink}
+            className="text-neutral-800 cursor-pointer hover:underline ml-1"
           >
             Log in
           </span>
         </p>
       </div>
     </div>
-  )
+  );
 
   return (
     <Modal
@@ -134,6 +132,6 @@ const RegisterModal = () => {
       footer={footerContent}
     />
   );
-}
+};
 
-export default RegisterModal; 
+export default RegisterModal;

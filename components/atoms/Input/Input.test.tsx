@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form';
 const TestComponent = ({
   id = 'test',
   label = 'Test Label',
-  type,
-  disabled,
-  formatPrice,
-  required,
+  type = 'text',
+  disabled = false,
+  formatPrice = false,
+  required = false,
 }) => {
   const { register, formState: { errors } } = useForm();
   return (
@@ -24,6 +24,7 @@ const TestComponent = ({
     />
   );
 };
+
 
 describe('Input Component', () => {
   it('renders input with label', () => {

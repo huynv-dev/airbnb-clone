@@ -1,7 +1,6 @@
 'use client';
 
 import { IconType } from 'react-icons';
-import styles from './CategoryInput.module.css';
 import clsx from 'clsx';
 
 interface CategoryInputProps {
@@ -22,14 +21,14 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
       data-testid="category-container"
       onClick={() => onClick(label)}
       className={clsx(
-        styles.container,
-        selected && styles.selected
+        'flex flex-col items-center justify-center gap-2 p-4 border-2 rounded-xl cursor-pointer transition hover:border-black',
+        selected ? 'border-black bg-neutral-100' : 'border-neutral-200'
       )}
     >
       <Icon size={30} data-testid="category-icon" />
-      <div className={styles.label}>{label}</div>
+      <div className="font-medium text-sm">{label}</div>
     </div>
   );
 };
 
-export default CategoryInput; 
+export default CategoryInput;

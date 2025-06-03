@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "@/components/atoms";
-import styles from './Modal.module.css';
 import clsx from "clsx";
 
 interface ModalProps {
@@ -38,10 +37,8 @@ const Modal: React.FC<ModalProps> = ({
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
-    if (disabled) {
-      return;
-    }
-  
+    if (disabled) return;
+
     setShowModal(false);
     setTimeout(() => {
       onClose();
@@ -49,61 +46,54 @@ const Modal: React.FC<ModalProps> = ({
   }, [onClose, disabled]);
 
   const handleSubmit = useCallback(() => {
-    if (disabled) {
-      return;
-    }
-
+    if (disabled) return;
     onSubmit();
   }, [onSubmit, disabled]);
 
   const handleSecondaryAction = useCallback(() => {
-    if (disabled || !secondaryAction) {
-      return;
-    }
-
+    if (disabled || !secondaryAction) return;
     secondaryAction();
   }, [secondaryAction, disabled]);
 
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
 
   return (
     <>
+      {/* Overlay */}
       <div
-        className={styles.overlay}
         onClick={handleClose}
+        className="fixed inset-0 bg-black/50 z-40"
         data-testid="modal-overlay"
       />
+
+      {/* Modal Container */}
       <div
         className={clsx(
-          styles.container,
-          showModal ? styles.show : styles.hide
+          "fixed inset-0 z-50 flex items-center justify-center px-4",
+          showModal ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full",
+          "transition-all duration-300"
         )}
         data-testid="modal-container"
       >
-        {/* Content */}
-        <div className={styles.content}>
+        <div className="bg-white rounded-lg shadow-lg w-full max-w-lg overflow-hidden">
           {/* Header */}
-          <div className={styles.header}>
-            <button 
-              className={styles.closeButton}
+          <div className="relative p-5 border-b">
+            <button
               onClick={handleClose}
+              className="absolute right-4 top-4 text-gray-500 hover:text-black"
               data-testid="close-button"
             >
               <IoMdClose size={18} />
             </button>
-            <div className={styles.title}>
-              {title}
-            </div>
+            <h2 className="text-lg font-semibold text-center">{title}</h2>
           </div>
+
           {/* Body */}
-          <div className={styles.body}>
-            {body}
-          </div>
+          <div className="p-6">{body}</div>
+
           {/* Footer */}
-          <div className={styles.footer}>
-            <div className={styles.buttonContainer}>
+          <div className="px-6 pb-6">
+            <div className="flex flex-col gap-3">
               {secondaryAction && secondaryActionLabel && (
                 <Button
                   disabled={disabled}
@@ -118,12 +108,12 @@ const Modal: React.FC<ModalProps> = ({
                 onClick={handleSubmit}
               />
             </div>
-            {footer}
+            {footer && <div className="mt-4">{footer}</div>}
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
-export default Modal; 
+export default Modal;

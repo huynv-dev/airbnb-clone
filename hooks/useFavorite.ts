@@ -49,3 +49,5 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
     toggleFavorite,
   }
 } 
+
+export default useFavorite;
