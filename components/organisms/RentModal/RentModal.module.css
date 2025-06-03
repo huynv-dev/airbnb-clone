@@ -1,0 +1,21 @@
+.bodyContent {
+  @apply flex flex-col gap-8;
+}
+
+.categoryGrid {
+  @apply
+    grid 
+    grid-cols-1 
+    md:grid-cols-2 
+    gap-3
+    max-h-[50vh]
+    overflow-y-auto;
+}
+
+.categoryItem {
+  @apply col-span-1;
+}
+
+hr {
+  @apply my-4;
+} 

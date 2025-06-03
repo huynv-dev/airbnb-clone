@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Airbnb Clone
 
-## Getting Started
+Một dự án clone Airbnb sử dụng Next.js, Prisma và MongoDB.
 
-First, run the development server:
+## Cài đặt
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Cấu hình môi trường
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Tạo file `.env` và thêm các biến môi trường:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE_URL="your_mongodb_url"
+NEXTAUTH_SECRET="your_nextauth_secret"
 
-## Learn More
+# OAuth providers
+GITHUB_ID=
+GITHUB_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Quản lý Database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Khởi tạo và cập nhật schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Cập nhật schema database
+npm run db:push
 
-## Deploy on Vercel
+# Generate Prisma Client
+npm run db:generate
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Quản lý dữ liệu
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Mở Prisma Studio để quản lý database
+npm run db:studio
+
+# Reset database (xóa tất cả dữ liệu)
+npm run db:reset
+
+# Tạo dữ liệu mẫu
+npm run db:seed
+```
+
+## Development
+
+```bash
+# Chạy development server
+npm run dev
+
+# Build production
+npm run build
+
+# Chạy production server
+npm run start
+
+# Kiểm tra lỗi code
+npm run lint
+```
+
+## API Endpoints
+
+### Authentication
+- `POST /api/register` - Đăng ký user mới
+  ```json
+  {
+    "email": "user@example.com",
+    "name": "User Name",
+    "password": "password123"
+  }
+  ```
+
+### Listings
+- `POST /api/listings` - Tạo listing mới
+  ```json
+  {
+    "title": "Beach House",
+    "description": "Beautiful beach house",
+    "imageSrc": "image_url",
+    "category": "Beach",
+    "roomCount": 3,
+    "bathroomCount": 2,
+    "guestCount": 6,
+    "location": {
+      "value": "US"
+    },
+    "price": 100
+  }
+  ```
+- `DELETE /api/listings/{listingId}` - Xóa listing
+
+### Reservations
+- `POST /api/reservations` - Tạo reservation mới
+  ```json
+  {
+    "listingId": "listing_id",
+    "startDate": "2024-03-01T00:00:00.000Z",
+    "endDate": "2024-03-05T00:00:00.000Z",
+    "totalPrice": 500
+  }
+  ```
+- `DELETE /api/reservations/{reservationId}` - Hủy reservation
+
+### Favorites
+- `POST /api/favorites/{listingId}` - Thêm listing vào danh sách yêu thích
+- `DELETE /api/favorites/{listingId}` - Xóa listing khỏi danh sách yêu thích
+
+## Cấu trúc thư mục
+
+```
+├── app/
+│   ├── api/           # API routes
+│   ├── components/    # React components
+│   │   ├── atoms/     
+│   │   ├── molecules/
+│   │   ├── organisms/
+│   │   ├── templates/
+│   │   └── providers/
+│   └── pages/        # App pages
+├── prisma/
+│   └── schema.prisma # Database schema
+├── public/          # Static files
+└── types/           # TypeScript types
+```

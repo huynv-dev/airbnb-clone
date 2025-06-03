@@ -1,0 +1,15 @@
+.container {
+  @apply text-start;
+}
+
+.centered {
+  @apply text-center;
+}
+
+.title {
+  @apply text-2xl font-bold;
+}
+
+.subtitle {
+  @apply font-light text-neutral-500 mt-2;
+} 

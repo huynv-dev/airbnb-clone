@@ -1,0 +1,19 @@
+.container {
+  @apply rounded-xl
+    border-2
+    p-4
+    flex
+    flex-col
+    gap-3
+    hover:border-black
+    transition
+    cursor-pointer;
+}
+
+.selected {
+  @apply border-black;
+}
+
+.label {
+  @apply font-semibold;
+} 
