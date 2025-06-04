@@ -26,10 +26,16 @@ export default async function useReservations(params: IParams) {
           return listing && listing.userId === authorId;
         });
       }
-      return reservations.map((r) => ({
-        ...r,
-        listing: mockListings.find((l) => l.id === r.listingId) || null,
-      }));
+      return reservations
+        .map((r) => {
+          const listing = mockListings.find((l) => l.id === r.listingId);
+          if (!listing) return null;
+          return {
+            ...r,
+            listing,
+          };
+        })
+        .filter(Boolean);
     }
 
     const query: any = {};

@@ -1,8 +1,10 @@
 import EmptyState from '@/components/templates/EmptyState';
 import ReservationsClient from './ReservationsClient';
+import { Suspense } from 'react';
 
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useReservations from '@/hooks/useReservations';
+import { SafeReservation } from '@/types';
 
 export default async function ReservationsPage() {
   const currentUser = await useCurrentUser();
@@ -13,6 +15,10 @@ export default async function ReservationsPage() {
 
   const reservations = await useReservations({ authorId: currentUser.id });
 
+  function isSafeReservation(r: any): r is SafeReservation {
+    return r !== null && r !== undefined;
+  }
+
   if (reservations.length === 0) {
     return (
       <EmptyState
@@ -22,5 +28,9 @@ export default async function ReservationsPage() {
     );
   }
 
-  return <ReservationsClient reservations={reservations} currentUser={currentUser} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReservationsClient reservations={reservations.filter(isSafeReservation)} currentUser={currentUser} />
+    </Suspense>
+  );
 }

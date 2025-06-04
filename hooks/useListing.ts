@@ -14,9 +14,10 @@ export default async function useListing(params: IParams) {
       const listing = mockListings.find((l) => l.id === listingId);
       if (!listing) return null;
       const user = mockUsers.find((u) => u.id === listing.userId);
+      if (!user) return null;
       return {
         ...listing,
-        user: user || { name: 'Mock User' },
+        user,
       };
     }
 
