@@ -42,4 +42,4 @@ describe('Button Component', () => {
     expect(button).toHaveClass('font-light');
     expect(button).toHaveClass('border-[1px]');
   });
-}); 
+});

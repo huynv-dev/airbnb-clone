@@ -1,1 +1,1 @@
-export { default } from './RentModal'; 
+export { default } from './RentModal';

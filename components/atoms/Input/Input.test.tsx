@@ -10,7 +10,10 @@ const TestComponent = ({
   formatPrice = false,
   required = false,
 }) => {
-  const { register, formState: { errors } } = useForm();
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
   return (
     <Input
       id={id}
@@ -24,7 +27,6 @@ const TestComponent = ({
     />
   );
 };
-
 
 describe('Input Component', () => {
   it('renders input with label', () => {
@@ -52,4 +54,4 @@ describe('Input Component', () => {
     const input = screen.getByRole('textbox');
     expect(input).toHaveClass('border-rose-500');
   });
-}); 
+});

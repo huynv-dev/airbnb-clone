@@ -16,7 +16,6 @@ import { categories } from '@/data/categories';
 import Counter from '@/components/atoms/Counter';
 import ImageUpload from '@/components/atoms/ImageUpload';
 
-
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
@@ -63,7 +62,7 @@ const RentModal = () => {
 
   const Map = useMemo(
     () => dynamic(() => import('@/components/atoms/Map'), { ssr: false }),
-    [location]
+    [location],
   );
 
   const setCustomValue = (id: string, value: any) => {
@@ -102,7 +101,10 @@ const RentModal = () => {
   };
 
   const actionLabel = useMemo(() => (step === STEPS.PRICE ? 'Create' : 'Next'), [step]);
-  const secondaryActionLabel = useMemo(() => (step === STEPS.CATEGORY ? undefined : 'Back'), [step]);
+  const secondaryActionLabel = useMemo(
+    () => (step === STEPS.CATEGORY ? undefined : 'Back'),
+    [step],
+  );
 
   // Step Content Rendering
   let bodyContent: React.ReactNode;
@@ -110,11 +112,8 @@ const RentModal = () => {
   if (step === STEPS.CATEGORY) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading
-          title="Which of these best describes your place?"
-          subtitle="Pick a category"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+        <Heading title="Which of these best describes your place?" subtitle="Pick a category" />
+        <div className="grid max-h-[50vh] grid-cols-1 gap-3 overflow-y-auto md:grid-cols-2">
           {categories.map((item) => (
             <div key={item.label} className="col-span-1">
               <CategoryInput
@@ -133,10 +132,7 @@ const RentModal = () => {
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading
-          title="Where is your place located?"
-          subtitle="Help guests find you!"
-        />
+        <Heading title="Where is your place located?" subtitle="Help guests find you!" />
         <Map center={location?.latlng} />
       </div>
     );
@@ -180,10 +176,7 @@ const RentModal = () => {
           title="Add a photo of your place"
           subtitle="Show guests what your place looks like!"
         />
-        <ImageUpload
-          value={imageSrc}
-          onChange={(value) => setCustomValue('imageSrc', value)}
-        />
+        <ImageUpload value={imageSrc} onChange={(value) => setCustomValue('imageSrc', value)} />
       </div>
     );
   }
@@ -219,10 +212,7 @@ const RentModal = () => {
   if (step === STEPS.PRICE) {
     bodyContent = (
       <div className="flex flex-col gap-8">
-        <Heading
-          title="Now, set your price"
-          subtitle="How much do you charge per night?"
-        />
+        <Heading title="Now, set your price" subtitle="How much do you charge per night?" />
         <Input
           id="price"
           label="Price"

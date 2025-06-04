@@ -26,4 +26,4 @@ describe('Avatar Component', () => {
     const image = screen.getByRole('img');
     expect(image).toHaveClass('rounded-full');
   });
-}); 
+});

@@ -1,12 +1,11 @@
 'use client';
 
-import Container from "@/components/atoms/Container";
-import ListingHead from "@/components/organisms/ListingHead";
-import ListingInfo from "@/components/organisms/ListingInfo";
-import ListingReservation from "@/components/organisms/ListingReservation";
-import { categories } from "@/data/categories";
-import { SafeListing, SafeReservation, SafeUser } from "@/types";
-import styles from './ListingLayout.module.css';
+import Container from '@/components/atoms/Container';
+import ListingHead from '@/components/organisms/ListingHead';
+import ListingInfo from '@/components/organisms/ListingInfo';
+import ListingReservation from '@/components/organisms/ListingReservation';
+import { categories } from '@/data/categories';
+import { SafeListing, SafeReservation, SafeUser } from '@/types';
 
 interface ListingLayoutProps {
   listing: SafeListing & {
@@ -19,15 +18,14 @@ interface ListingLayoutProps {
 const ListingLayout: React.FC<ListingLayoutProps> = ({
   listing,
   currentUser,
-  reservations = []
+  reservations = [],
 }) => {
-  const category = categories.find((items) => 
-    items.label === listing.category);
+  const category = categories.find((items) => items.label === listing.category);
 
   return (
     <Container>
-      <div className={styles.container}>
-        <div className={styles.mainContent}>
+      <div className="py-8">
+        <div className="mx-auto flex max-w-screen-lg flex-col gap-8">
           <ListingHead
             title={listing.title}
             imageSrc={listing.imageSrc}
@@ -35,7 +33,7 @@ const ListingLayout: React.FC<ListingLayoutProps> = ({
             id={listing.id}
             currentUser={currentUser}
           />
-          <div className={styles.infoWrapper}>
+          <div className="flex flex-col gap-8 md:flex-row">
             <ListingInfo
               user={listing.user}
               category={category}
@@ -45,7 +43,7 @@ const ListingLayout: React.FC<ListingLayoutProps> = ({
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
             />
-            <div className={styles.reservationWrapper}>
+            <div className="w-full md:w-1/3">
               <ListingReservation
                 price={listing.price}
                 totalPrice={listing.price}
@@ -61,6 +59,6 @@ const ListingLayout: React.FC<ListingLayoutProps> = ({
       </div>
     </Container>
   );
-}
+};
 
-export default ListingLayout; 
+export default ListingLayout;

@@ -1,22 +1,19 @@
 'use client';
 
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import useFavorite from "@/hooks/useFavorite";
-import { SafeUser } from "@/types";
-import clsx from "clsx";
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import useFavorite from '@/hooks/useFavorite';
+import { SafeUser } from '@/types';
+import clsx from 'clsx';
 
 interface HeartButtonProps {
   listingId: string;
   currentUser?: SafeUser | null;
 }
 
-const HeartButton: React.FC<HeartButtonProps> = ({
-  listingId,
-  currentUser
-}) => {
+const HeartButton: React.FC<HeartButtonProps> = ({ listingId, currentUser }) => {
   const { hasFavorited, toggleFavorite } = useFavorite({
     listingId,
-    currentUser
+    currentUser,
   });
 
   return (
@@ -33,10 +30,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
       <AiFillHeart
         size={24}
         data-testid="fill-heart"
-        className={clsx(
-          'transition',
-          hasFavorited ? 'text-rose-500' : 'text-neutral-500'
-        )}
+        className={clsx('transition', hasFavorited ? 'text-rose-500' : 'text-neutral-500')}
       />
     </div>
   );

@@ -24,13 +24,13 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
 }) => {
   return (
     <div className="w-full">
-      <label htmlFor="country-select" className="block mb-1 text-sm font-medium text-neutral-700">
+      <label htmlFor="country-select" className="mb-1 block text-sm font-medium text-neutral-700">
         {label}
       </label>
       <select
         id="country-select"
         required={required}
-        className="w-full px-4 py-2 border border-neutral-300 rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 disabled:opacity-50"
+        className="w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none disabled:opacity-50"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >

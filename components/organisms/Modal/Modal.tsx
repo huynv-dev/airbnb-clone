@@ -1,9 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import { IoMdClose } from "react-icons/io";
-import { Button } from "@/components/atoms";
-import clsx from "clsx";
+import { useCallback, useEffect, useState } from 'react';
+import { IoMdClose } from 'react-icons/io';
+import { Button } from '@/components/atoms';
+import clsx from 'clsx';
 
 interface ModalProps {
   isOpen?: boolean;
@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({
   footer,
   disabled,
   secondaryAction,
-  secondaryActionLabel
+  secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -62,30 +62,30 @@ const Modal: React.FC<ModalProps> = ({
       {/* Overlay */}
       <div
         onClick={handleClose}
-        className="fixed inset-0 bg-black/50 z-40"
+        className="fixed inset-0 z-40 bg-black/50"
         data-testid="modal-overlay"
       />
 
       {/* Modal Container */}
       <div
         className={clsx(
-          "fixed inset-0 z-50 flex items-center justify-center px-4",
-          showModal ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full",
-          "transition-all duration-300"
+          'fixed inset-0 z-50 flex items-center justify-center px-4',
+          showModal ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
+          'transition-all duration-300',
         )}
         data-testid="modal-container"
       >
-        <div className="bg-white rounded-lg shadow-lg w-full max-w-lg overflow-hidden">
+        <div className="w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
           {/* Header */}
-          <div className="relative p-5 border-b">
+          <div className="relative border-b p-5">
             <button
               onClick={handleClose}
-              className="absolute right-4 top-4 text-gray-500 hover:text-black"
+              className="absolute top-4 right-4 text-gray-500 hover:text-black"
               data-testid="close-button"
             >
               <IoMdClose size={18} />
             </button>
-            <h2 className="text-lg font-semibold text-center">{title}</h2>
+            <h2 className="text-center text-lg font-semibold">{title}</h2>
           </div>
 
           {/* Body */}
@@ -102,11 +102,7 @@ const Modal: React.FC<ModalProps> = ({
                   outline
                 />
               )}
-              <Button
-                disabled={disabled}
-                label={actionLabel}
-                onClick={handleSubmit}
-              />
+              <Button disabled={disabled} label={actionLabel} onClick={handleSubmit} />
             </div>
             {footer && <div className="mt-4">{footer}</div>}
           </div>

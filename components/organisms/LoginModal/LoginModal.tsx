@@ -1,22 +1,18 @@
 'use client';
 
-import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useCallback, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
-import { 
-  FieldValues, 
-  SubmitHandler, 
-  useForm
-} from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import { AiFillGithub } from "react-icons/ai";
-import { useRouter } from "next/navigation";
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { FcGoogle } from 'react-icons/fc';
+import { AiFillGithub } from 'react-icons/ai';
+import { useRouter } from 'next/navigation';
 
-import useRegisterModal from "@/hooks/useRegisterModal";
-import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from '@/hooks/useRegisterModal';
+import useLoginModal from '@/hooks/useLoginModal';
 
-import Modal from "../Modal";
-import { Button, Input, Heading } from "@/components/atoms";
+import Modal from '../Modal';
+import { Button, Input, Heading } from '@/components/atoms';
 
 const LoginModal = () => {
   const router = useRouter();
@@ -24,25 +20,24 @@ const LoginModal = () => {
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { 
-    register, 
+  const {
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn('credentials', { 
-      ...data, 
+    signIn('credentials', {
+      ...data,
       redirect: false,
-    })
-    .then((callback) => {
+    }).then((callback) => {
       setIsLoading(false);
 
       if (callback?.ok) {
@@ -55,7 +50,7 @@ const LoginModal = () => {
         toast.error(callback.error);
       }
     });
-  }
+  };
 
   const onToggle = useCallback(() => {
     loginModal.onClose();
@@ -64,15 +59,12 @@ const LoginModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading
-        title="Welcome back"
-        subtitle="Login to your account!"
-      />
+      <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
         id="email"
         label="Email"
         disabled={isLoading}
-        register={register}  
+        register={register}
         errors={errors}
         required
       />
@@ -89,27 +81,24 @@ const LoginModal = () => {
   );
 
   const footerContent = (
-    <div className="flex flex-col gap-4 mt-4">
+    <div className="mt-4 flex flex-col gap-4">
       <hr />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn('google')}
       />
-      <Button 
-        outline 
+      <Button
+        outline
         label="Continue with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
-      <div className="text-neutral-500 text-center mt-4 font-light">
+      <div className="mt-4 text-center font-light text-neutral-500">
         <p>
           First time using Airbnb?
-          <span
-            onClick={onToggle}
-            className="text-neutral-800 cursor-pointer hover:underline ml-1"
-          >
+          <span onClick={onToggle} className="ml-1 cursor-pointer text-neutral-800 hover:underline">
             Create an account
           </span>
         </p>
@@ -129,6 +118,6 @@ const LoginModal = () => {
       footer={footerContent}
     />
   );
-}
+};
 
 export default LoginModal;

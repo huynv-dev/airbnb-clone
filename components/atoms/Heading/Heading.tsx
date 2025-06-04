@@ -12,9 +12,7 @@ const Heading: React.FC<HeadingProps> = ({ title, subtitle, center }) => {
   return (
     <div className={clsx(center ? 'text-center' : 'text-start')}>
       <div className="text-2xl font-bold text-neutral-800">{title}</div>
-      {subtitle && (
-        <div className="mt-1 text-sm text-neutral-500">{subtitle}</div>
-      )}
+      {subtitle && <div className="mt-1 text-sm text-neutral-500">{subtitle}</div>}
     </div>
   );
 };

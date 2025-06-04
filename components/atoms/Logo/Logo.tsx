@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import styles from './Logo.module.css';
 
 const Logo = () => {
   const router = useRouter();
@@ -10,7 +9,7 @@ const Logo = () => {
   return (
     <Image
       onClick={() => router.push('/')}
-      className={styles.logo}
+      className="cursor-pointer"
       src="/images/logo.png"
       height="100"
       width="100"
@@ -19,4 +18,4 @@ const Logo = () => {
   );
 };
 
-export default Logo; 
+export default Logo;

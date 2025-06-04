@@ -31,4 +31,4 @@ describe('Logo Component', () => {
     const image = screen.getByRole('img');
     expect(image).toHaveClass('hidden', 'md:block', 'cursor-pointer');
   });
-}); 
+});

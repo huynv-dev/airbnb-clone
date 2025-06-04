@@ -1,15 +1,12 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prismadb";
-import useCurrentUser from "@/hooks/useCurrentUser";
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/prismadb';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 interface IParams {
   listingId?: string;
 }
 
-export async function POST(
-  request: Request, 
-  { params }: { params: IParams }
-) {
+export async function POST(request: Request, { params }: { params: IParams }) {
   const currentUser = await useCurrentUser();
 
   if (!currentUser) {
@@ -28,20 +25,17 @@ export async function POST(
 
   const user = await prisma.user.update({
     where: {
-      id: currentUser.id
+      id: currentUser.id,
     },
     data: {
-      favoriteIds
-    }
+      favoriteIds,
+    },
   });
 
   return NextResponse.json(user);
 }
 
-export async function DELETE(
-  request: Request, 
-  { params }: { params: IParams }
-) {
+export async function DELETE(request: Request, { params }: { params: IParams }) {
   const currentUser = await useCurrentUser();
 
   if (!currentUser) {
@@ -60,12 +54,12 @@ export async function DELETE(
 
   const user = await prisma.user.update({
     where: {
-      id: currentUser.id
+      id: currentUser.id,
     },
     data: {
-      favoriteIds
-    }
+      favoriteIds,
+    },
   });
 
   return NextResponse.json(user);
-} 
+}

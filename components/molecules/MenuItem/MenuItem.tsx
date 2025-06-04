@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 
 import React from 'react';
 import clsx from 'clsx';
@@ -14,8 +14,8 @@ const MenuItem: React.FC<MenuItemProps> = ({ label, onClick, disabled }) => {
     <div
       onClick={disabled ? undefined : onClick}
       className={clsx(
-        'px-4 py-3 text-sm transition hover:bg-neutral-100 cursor-pointer',
-        disabled && 'opacity-50 cursor-not-allowed hover:bg-transparent'
+        'cursor-pointer px-4 py-3 text-sm transition hover:bg-neutral-100',
+        disabled && 'cursor-not-allowed opacity-50 hover:bg-transparent',
       )}
     >
       {label}

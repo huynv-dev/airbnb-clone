@@ -1,4 +1,5 @@
-import prisma from "@/lib/prismadb";
+import prisma from '@/lib/prismadb';
+import mockListings from '@/data/mockListings';
 
 export interface IListingsParams {
   userId?: string;
@@ -12,12 +13,15 @@ export interface IListingsParams {
 }
 
 export default async function useListings(params: IListingsParams) {
+  if (process.env.USE_MOCK_DATA === 'true') {
+    return mockListings;
+  }
   try {
     const {
       userId,
-      roomCount, 
-      guestCount, 
-      bathroomCount, 
+      roomCount,
+      guestCount,
+      bathroomCount,
       locationValue,
       startDate,
       endDate,
@@ -36,20 +40,20 @@ export default async function useListings(params: IListingsParams) {
 
     if (roomCount) {
       query.roomCount = {
-        gte: +roomCount
-      }
+        gte: +roomCount,
+      };
     }
 
     if (guestCount) {
       query.guestCount = {
-        gte: +guestCount
-      }
+        gte: +guestCount,
+      };
     }
 
     if (bathroomCount) {
       query.bathroomCount = {
-        gte: +bathroomCount
-      }
+        gte: +bathroomCount,
+      };
     }
 
     if (locationValue) {
@@ -63,23 +67,23 @@ export default async function useListings(params: IListingsParams) {
             OR: [
               {
                 endDate: { gte: startDate },
-                startDate: { lte: startDate }
+                startDate: { lte: startDate },
               },
               {
                 startDate: { lte: endDate },
-                endDate: { gte: endDate }
-              }
-            ]
-          }
-        }
-      }
+                endDate: { gte: endDate },
+              },
+            ],
+          },
+        },
+      };
     }
 
     const listings = await prisma.listing.findMany({
       where: query,
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: 'desc',
+      },
     });
 
     const safeListings = listings.map((listing) => ({
@@ -91,4 +95,4 @@ export default async function useListings(params: IListingsParams) {
   } catch (error: any) {
     throw new Error(error);
   }
-} 
+}

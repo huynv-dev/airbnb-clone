@@ -6,14 +6,12 @@ import { useCallback, useMemo, useState } from 'react';
 import { Range } from 'react-date-range';
 import { formatISO } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
-
-import useSearchModal from '@/hooks/useSearchModal';
-
 import Modal from '../Modal';
 import Calendar from '@/components/atoms/Calendar';
 import Counter from '@/components/atoms/Counter';
 import { Heading } from '@/components/atoms';
 import CountrySelect from '@/components/atoms/CountrySelect';
+import useSearchModal from '@/hooks/useSearchModal';
 import { countries } from '@/data/countries';
 
 enum STEPS {
@@ -46,7 +44,7 @@ const SearchModal = () => {
 
   const Map = useMemo(
     () => dynamic(() => import('@/components/atoms/Map'), { ssr: false }),
-    [location]
+    [location],
   );
 
   const onBack = useCallback(() => setStep((value) => value - 1), []);
@@ -79,10 +77,24 @@ const SearchModal = () => {
     setStep(STEPS.LOCATION);
     searchModal.onClose();
     router.push(url);
-  }, [step, searchModal, location, guestCount, roomCount, bathroomCount, dateRange, params, onNext, router]);
+  }, [
+    step,
+    searchModal,
+    location,
+    guestCount,
+    roomCount,
+    bathroomCount,
+    dateRange,
+    params,
+    onNext,
+    router,
+  ]);
 
   const actionLabel = useMemo(() => (step === STEPS.INFO ? 'Search' : 'Next'), [step]);
-  const secondaryActionLabel = useMemo(() => (step === STEPS.LOCATION ? undefined : 'Back'), [step]);
+  const secondaryActionLabel = useMemo(
+    () => (step === STEPS.LOCATION ? undefined : 'Back'),
+    [step],
+  );
 
   let bodyContent = (
     <div className="flex flex-col gap-4">
@@ -109,11 +121,26 @@ const SearchModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-4">
         <Heading title="More information" subtitle="Find your perfect place!" />
-        <Counter onChange={setGuestCount} value={guestCount} title="Guests" subtitle="How many guests are coming?" />
+        <Counter
+          onChange={setGuestCount}
+          value={guestCount}
+          title="Guests"
+          subtitle="How many guests are coming?"
+        />
         <hr />
-        <Counter onChange={setRoomCount} value={roomCount} title="Rooms" subtitle="How many rooms do you need?" />
+        <Counter
+          onChange={setRoomCount}
+          value={roomCount}
+          title="Rooms"
+          subtitle="How many rooms do you need?"
+        />
         <hr />
-        <Counter onChange={setBathroomCount} value={bathroomCount} title="Bathrooms" subtitle="How many bathrooms do you need?" />
+        <Counter
+          onChange={setBathroomCount}
+          value={bathroomCount}
+          title="Bathrooms"
+          subtitle="How many bathrooms do you need?"
+        />
       </div>
     );
   }

@@ -23,4 +23,4 @@ describe('Heading Component', () => {
     const container = screen.getByText('Test Title').parentElement;
     expect(container).toHaveClass('text-start');
   });
-}); 
+});

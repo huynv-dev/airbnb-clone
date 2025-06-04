@@ -67,6 +67,7 @@ npm run lint
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/register` - Đăng ký user mới
   ```json
   {
@@ -77,6 +78,7 @@ npm run lint
   ```
 
 ### Listings
+
 - `POST /api/listings` - Tạo listing mới
   ```json
   {
@@ -96,6 +98,7 @@ npm run lint
 - `DELETE /api/listings/{listingId}` - Xóa listing
 
 ### Reservations
+
 - `POST /api/reservations` - Tạo reservation mới
   ```json
   {
@@ -108,6 +111,7 @@ npm run lint
 - `DELETE /api/reservations/{reservationId}` - Hủy reservation
 
 ### Favorites
+
 - `POST /api/favorites/{listingId}` - Thêm listing vào danh sách yêu thích
 - `DELETE /api/favorites/{listingId}` - Xóa listing khỏi danh sách yêu thích
 
@@ -117,7 +121,7 @@ npm run lint
 ├── app/
 │   ├── api/           # API routes
 │   ├── components/    # React components
-│   │   ├── atoms/     
+│   │   ├── atoms/
 │   │   ├── molecules/
 │   │   ├── organisms/
 │   │   ├── templates/

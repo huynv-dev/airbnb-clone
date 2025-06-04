@@ -24,7 +24,7 @@ describe('MenuItem Component', () => {
       'hover:bg-neutral-100',
       'transition',
       'font-semibold',
-      'cursor-pointer'
+      'cursor-pointer',
     );
   });
-}); 
+});

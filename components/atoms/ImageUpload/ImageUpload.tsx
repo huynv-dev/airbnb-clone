@@ -19,24 +19,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       onUpload={(result: any) => onChange(result.info.secure_url)}
       uploadPreset="your_upload_preset" // 👉 thay bằng preset Cloudinary của bạn
       options={{
-        maxFiles: 1
+        maxFiles: 1,
       }}
     >
       {({ open }) => (
         <div
           onClick={() => open?.()}
-          className="relative cursor-pointer hover:opacity-70 transition border-dashed border-2 p-20 border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600"
+          className="relative flex cursor-pointer flex-col items-center justify-center gap-4 border-2 border-dashed border-neutral-300 p-20 text-neutral-600 transition hover:opacity-70"
         >
           <TbPhotoPlus size={50} />
-          <div className="font-semibold text-lg">Click to upload</div>
+          <div className="text-lg font-semibold">Click to upload</div>
           {value && (
-            <div className="absolute inset-0 w-full h-full">
-              <Image
-                fill
-                style={{ objectFit: 'cover' }}
-                src={value}
-                alt="Uploaded"
-              />
+            <div className="absolute inset-0 h-full w-full">
+              <Image fill style={{ objectFit: 'cover' }} src={value} alt="Uploaded" />
             </div>
           )}
         </div>

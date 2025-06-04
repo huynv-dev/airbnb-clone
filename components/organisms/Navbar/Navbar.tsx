@@ -3,8 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { UserMenu } from '../index';
+import { SafeUser } from '@/types';
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: SafeUser | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const router = useRouter();
 
   const handleLogoClick = useCallback(() => {
@@ -12,15 +17,12 @@ const Navbar = () => {
   }, [router]);
 
   return (
-    <header className="w-full shadow-sm border-b">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <div
-          onClick={handleLogoClick}
-          className="text-2xl font-bold text-rose-500 cursor-pointer"
-        >
+    <header className="w-full border-b shadow-sm">
+      <div className="container mx-auto flex items-center justify-between px-6 py-4">
+        <div onClick={handleLogoClick} className="cursor-pointer text-2xl font-bold text-rose-500">
           AirbnbClone
         </div>
-        <UserMenu />
+        <UserMenu currentUser={currentUser} />
       </div>
     </header>
   );

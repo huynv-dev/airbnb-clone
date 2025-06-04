@@ -56,14 +56,14 @@ describe('LoginModal Component', () => {
     (signIn as jest.Mock).mockResolvedValueOnce({ ok: true });
 
     render(<LoginModal />);
-    
+
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     });
     fireEvent.change(screen.getByLabelText('Password'), {
       target: { value: 'password123' },
     });
-    
+
     fireEvent.click(screen.getByText('Continue'));
 
     await waitFor(() => {
@@ -77,7 +77,7 @@ describe('LoginModal Component', () => {
 
   it('handles social login', async () => {
     render(<LoginModal />);
-    
+
     fireEvent.click(screen.getByText('Continue with Google'));
     expect(signIn).toHaveBeenCalledWith('google');
 
@@ -87,9 +87,9 @@ describe('LoginModal Component', () => {
 
   it('toggles between login and register modals', () => {
     render(<LoginModal />);
-    
+
     fireEvent.click(screen.getByText('Create an account'));
-    
+
     expect(mockLoginModal.onClose).toHaveBeenCalled();
     expect(mockRegisterModal.onOpen).toHaveBeenCalled();
   });
@@ -100,14 +100,14 @@ describe('LoginModal Component', () => {
     });
 
     render(<LoginModal />);
-    
+
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     });
     fireEvent.change(screen.getByLabelText('Password'), {
       target: { value: 'wrong-password' },
     });
-    
+
     fireEvent.click(screen.getByText('Continue'));
 
     await waitFor(() => {
@@ -115,4 +115,4 @@ describe('LoginModal Component', () => {
       // Toast error message would be shown here
     });
   });
-}); 
+});

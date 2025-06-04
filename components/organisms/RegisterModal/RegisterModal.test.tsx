@@ -51,7 +51,7 @@ describe('RegisterModal Component', () => {
     mockedAxios.post.mockResolvedValueOnce({});
 
     render(<RegisterModal />);
-    
+
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     });
@@ -61,7 +61,7 @@ describe('RegisterModal Component', () => {
     fireEvent.change(screen.getByLabelText('Password'), {
       target: { value: 'password123' },
     });
-    
+
     fireEvent.click(screen.getByText('Continue'));
 
     await waitFor(() => {
@@ -80,7 +80,7 @@ describe('RegisterModal Component', () => {
     mockedAxios.post.mockRejectedValueOnce({ message: errorMessage });
 
     render(<RegisterModal />);
-    
+
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@example.com' },
     });
@@ -90,7 +90,7 @@ describe('RegisterModal Component', () => {
     fireEvent.change(screen.getByLabelText('Password'), {
       target: { value: 'password123' },
     });
-    
+
     fireEvent.click(screen.getByText('Continue'));
 
     await waitFor(() => {
@@ -101,7 +101,7 @@ describe('RegisterModal Component', () => {
 
   it('handles social registration', () => {
     render(<RegisterModal />);
-    
+
     fireEvent.click(screen.getByText('Continue with Google'));
     expect(signIn).toHaveBeenCalledWith('google');
 
@@ -111,10 +111,10 @@ describe('RegisterModal Component', () => {
 
   it('toggles between register and login modals', () => {
     render(<RegisterModal />);
-    
+
     fireEvent.click(screen.getByText('Log in'));
-    
+
     expect(mockRegisterModal.onClose).toHaveBeenCalled();
     expect(mockLoginModal.onOpen).toHaveBeenCalled();
   });
-}); 
+});

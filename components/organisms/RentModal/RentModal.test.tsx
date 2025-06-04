@@ -73,7 +73,7 @@ describe('RentModal Component', () => {
 
   it('handles form submission', async () => {
     mockedAxios.post.mockResolvedValueOnce({});
-    
+
     render(<RentModal />);
 
     // Navigate through all steps
@@ -83,7 +83,7 @@ describe('RentModal Component', () => {
 
     // At Price step
     expect(screen.getByText('Now, set your price')).toBeInTheDocument();
-    
+
     // Fill in price
     fireEvent.change(screen.getByLabelText('Price'), {
       target: { value: '100' },
@@ -101,7 +101,7 @@ describe('RentModal Component', () => {
 
   it('handles submission error', async () => {
     mockedAxios.post.mockRejectedValueOnce(new Error('Submission failed'));
-    
+
     render(<RentModal />);
 
     // Navigate to Price step
@@ -119,7 +119,7 @@ describe('RentModal Component', () => {
 
   it('disables form submission while loading', async () => {
     mockedAxios.post.mockImplementationOnce(() => new Promise(() => {})); // Never resolves
-    
+
     render(<RentModal />);
 
     // Navigate to Price step
@@ -133,4 +133,4 @@ describe('RentModal Component', () => {
       expect(screen.getByText('Create')).toBeDisabled();
     });
   });
-}); 
+});

@@ -1,4 +1,6 @@
-import prisma from "@/lib/prismadb";
+import prisma from '@/lib/prismadb';
+import mockReservations from '@/data/mockReservations';
+import mockListings from '@/data/mockListings';
 
 interface IParams {
   listingId?: string;
@@ -10,11 +12,31 @@ export default async function useReservations(params: IParams) {
   try {
     const { listingId, userId, authorId } = params;
 
+    if (process.env.USE_MOCK_DATA === 'true') {
+      let reservations = mockReservations;
+      if (listingId) {
+        reservations = reservations.filter((r) => r.listingId === listingId);
+      }
+      if (userId) {
+        reservations = reservations.filter((r) => r.userId === userId);
+      }
+      if (authorId) {
+        reservations = reservations.filter((r) => {
+          const listing = mockListings.find((l) => l.id === r.listingId);
+          return listing && listing.userId === authorId;
+        });
+      }
+      return reservations.map((r) => ({
+        ...r,
+        listing: mockListings.find((l) => l.id === r.listingId) || null,
+      }));
+    }
+
     const query: any = {};
-        
+
     if (listingId) {
       query.listingId = listingId;
-    };
+    }
 
     if (userId) {
       query.userId = userId;
@@ -27,15 +49,14 @@ export default async function useReservations(params: IParams) {
     const reservations = await prisma.reservation.findMany({
       where: query,
       include: {
-        listing: true
+        listing: true,
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: 'desc',
+      },
     });
 
-    const safeReservations = reservations.map(
-      (reservation) => ({
+    const safeReservations = reservations.map((reservation) => ({
       ...reservation,
       createdAt: reservation.createdAt.toISOString(),
       startDate: reservation.startDate.toISOString(),
@@ -50,4 +71,4 @@ export default async function useReservations(params: IParams) {
   } catch (error: any) {
     throw new Error(error);
   }
-} 
+}

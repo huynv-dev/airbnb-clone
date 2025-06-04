@@ -53,12 +53,12 @@ describe('Modal Component', () => {
         {...defaultProps}
         secondaryAction={mockSecondaryAction}
         secondaryActionLabel="Cancel"
-      />
+      />,
     );
-    
+
     const cancelButton = screen.getByText('Cancel');
     expect(cancelButton).toBeInTheDocument();
-    
+
     fireEvent.click(cancelButton);
     expect(mockSecondaryAction).toHaveBeenCalled();
   });
@@ -70,7 +70,7 @@ describe('Modal Component', () => {
         disabled
         secondaryAction={mockSecondaryAction}
         secondaryActionLabel="Cancel"
-      />
+      />,
     );
 
     fireEvent.click(screen.getByText('Submit'));
@@ -87,15 +87,9 @@ describe('Modal Component', () => {
     const customBody = <div data-testid="custom-body">Custom Body</div>;
     const customFooter = <div data-testid="custom-footer">Custom Footer</div>;
 
-    render(
-      <Modal
-        {...defaultProps}
-        body={customBody}
-        footer={customFooter}
-      />
-    );
+    render(<Modal {...defaultProps} body={customBody} footer={customFooter} />);
 
     expect(screen.getByTestId('custom-body')).toBeInTheDocument();
     expect(screen.getByTestId('custom-footer')).toBeInTheDocument();
   });
-}); 
+});

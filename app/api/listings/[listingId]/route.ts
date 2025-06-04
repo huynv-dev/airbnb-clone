@@ -1,15 +1,12 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prismadb";
-import useCurrentUser from "@/hooks/useCurrentUser";
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/prismadb';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 interface IParams {
   listingId?: string;
 }
 
-export async function DELETE(
-  request: Request, 
-  { params }: { params: IParams }
-) {
+export async function DELETE(request: Request, { params }: { params: IParams }) {
   const currentUser = await useCurrentUser();
 
   if (!currentUser) {
@@ -25,9 +22,9 @@ export async function DELETE(
   const listing = await prisma.listing.deleteMany({
     where: {
       id: listingId,
-      userId: currentUser.id
-    }
+      userId: currentUser.id,
+    },
   });
 
   return NextResponse.json(listing);
-} 
+}

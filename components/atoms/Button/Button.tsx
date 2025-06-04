@@ -25,13 +25,11 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={clsx(
-        'w-full flex items-center justify-center gap-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed',
+        'flex w-full items-center justify-center gap-2 rounded-md transition disabled:cursor-not-allowed disabled:opacity-70',
         outline
-          ? 'bg-white border border-neutral-300 text-black hover:bg-neutral-100'
-          : 'bg-rose-500 border border-rose-500 text-white hover:bg-rose-600',
-        small
-          ? 'py-1 px-3 text-sm font-light'
-          : 'py-3 px-6 text-base font-semibold'
+          ? 'border border-neutral-300 bg-white text-black hover:bg-neutral-100'
+          : 'border border-rose-500 bg-rose-500 text-white hover:bg-rose-600',
+        small ? 'px-3 py-1 text-sm font-light' : 'px-6 py-3 text-base font-semibold',
       )}
     >
       {Icon && <Icon size={small ? 18 : 24} className="shrink-0" />}

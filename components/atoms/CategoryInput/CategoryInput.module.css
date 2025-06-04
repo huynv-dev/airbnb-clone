@@ -1,13 +1,5 @@
 .container {
-  @apply rounded-xl
-    border-2
-    p-4
-    flex
-    flex-col
-    gap-3
-    hover:border-black
-    transition
-    cursor-pointer;
+  @apply flex cursor-pointer flex-col gap-3 rounded-xl border-2 p-4 transition hover:border-black;
 }
 
 .selected {
@@ -16,4 +8,4 @@
 
 .label {
   @apply font-semibold;
-} 
+}
