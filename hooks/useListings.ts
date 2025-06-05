@@ -1,5 +1,5 @@
 import prisma from '@/lib/prismadb';
-import mockListings from '@/data/mockListings';
+import mockListings from '@/mocks/data/mockListings';
 
 export interface IListingsParams {
   userId?: string;
@@ -86,7 +86,7 @@ export default async function useListings(params: IListingsParams) {
       },
     });
 
-    const safeListings = listings.map((listing) => ({
+    const safeListings = listings.map((listing: any) => ({
       ...listing,
       createdAt: listing.createdAt.toISOString(),
     }));

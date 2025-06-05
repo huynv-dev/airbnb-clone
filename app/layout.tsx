@@ -1,25 +1,26 @@
-import '@/styles/tailwind.css';
-import '@/styles/globals.css';
-import { Nunito } from 'next/font/google';
-import MainLayout from '@/components/templates/MainLayout';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { MainLayout } from "@/components/templates/MainLayout";
 
-const font = Nunito({
-  subsets: ['latin'],
-});
+const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: 'Airbnb Clone',
-  description: 'Airbnb clone built with Next.js 13',
+export const metadata: Metadata = {
+  title: "Airbnb Clone",
+  description: "Book unique homes and experiences",
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const currentUser = await useCurrentUser();
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={font.className}>
-        <MainLayout currentUser={currentUser}>{children}</MainLayout>
+      <body className={inter.className}>
+        <MainLayout>
+          {children}
+        </MainLayout>
       </body>
     </html>
   );

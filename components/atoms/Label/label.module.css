@@ -1,0 +1,11 @@
+/* optional: dùng Tailwind cũng được */
+.label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.label-required::after {
+    content: " *";
+    color: red;
+}

@@ -1,0 +1,107 @@
+.typography {
+  font-size: 1rem;
+  color: var(--foreground);
+}
+
+/* Levels */
+.text-5 {
+  font-size: 2.25rem; /* text-4xl */
+}
+.text-4 {
+  font-size: 1.875rem; /* text-3xl */
+}
+.text-3 {
+  font-size: 1.5rem; /* text-2xl */
+}
+.text-2 {
+  font-size: 1.25rem; /* text-xl */
+}
+.text-1 {
+  font-size: 1.125rem; /* text-lg */
+}
+
+/* Titles */
+.title-5 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.title-4 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.375;
+}
+.title-3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.title-2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.title-1 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+/* Types */
+.primary {
+  color: var(--foreground);
+}
+.secondary {
+  color: #6b7280 !important;
+}
+.success {
+  color: #16a34a !important;
+}
+.warning {
+  color: #ca8a04 !important;
+}
+.danger {
+  color: #dc2626 !important;
+}
+
+/* Variants */
+.link {
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.paragraph {
+  line-height: 1.75;
+}
+.code {
+  font-family: monospace;
+  background: #f3f4f6;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+.mark {
+  background: #fef08a;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+.keyboard {
+  font-family: monospace;
+  font-size: 0.875rem;
+  padding: 0.125rem 0.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  background: #f3f4f6;
+}
+.underline {
+  text-decoration: underline;
+}
+.delete {
+  text-decoration: line-through;
+}
+.strong {
+  font-weight: 700;
+}
+.italic {
+  font-style: italic;
+}
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

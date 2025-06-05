@@ -1,6 +1,6 @@
 import prisma from '@/lib/prismadb';
 import useCurrentUser from './useCurrentUser';
-import mockListings from '@/data/mockListings';
+import mockListings from '@/mocks/data/mockListings';
 
 export default async function useFavorites() {
   if (process.env.USE_MOCK_DATA === 'true') {
@@ -22,7 +22,7 @@ export default async function useFavorites() {
       },
     });
 
-    const safeFavorites = favorites.map((favorite) => ({
+    const safeFavorites = favorites.map((favorite: any) => ({
       ...favorite,
       createdAt: favorite.createdAt.toISOString(),
     }));

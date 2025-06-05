@@ -1,0 +1,16 @@
+.gradientButton {
+  background-image: linear-gradient(to right, #e61e4d, #e31c5f, #d70466);
+  color: white;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.75rem; /* Tailwind's rounded-xl */
+}
+.gradientButton:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.gradientButton:active {
+  transform: scale(0.95);
+}

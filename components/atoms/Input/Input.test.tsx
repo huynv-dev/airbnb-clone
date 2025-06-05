@@ -1,57 +1,45 @@
-import { render, screen } from '@testing-library/react';
-import Input from './Input';
-import { useForm } from 'react-hook-form';
+import { render, screen, fireEvent } from '@testing-library/react'
+import { Input } from './Input'
 
-const TestComponent = ({
-  id = 'test',
-  label = 'Test Label',
-  type = 'text',
-  disabled = false,
-  formatPrice = false,
-  required = false,
-}) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm();
-  return (
-    <Input
-      id={id}
-      label={label}
-      type={type}
-      disabled={disabled}
-      formatPrice={formatPrice}
-      required={required}
-      register={register}
-      errors={errors}
-    />
-  );
-};
+describe('Input', () => {
+  it('renders input with placeholder', () => {
+    render(<Input placeholder="Enter text" />)
+    expect(screen.getByPlaceholderText('Enter text')).toBeInTheDocument()
+  })
 
-describe('Input Component', () => {
-  it('renders input with label', () => {
-    render(<TestComponent />);
-    expect(screen.getByLabelText('Test Label')).toBeInTheDocument();
-  });
+  it('renders with different sizes', () => {
+    const { rerender } = render(<Input size="sm" />)
+    expect(screen.getByRole('textbox')).toBeInTheDocument()
 
-  it('renders in disabled state', () => {
-    render(<TestComponent disabled />);
-    expect(screen.getByRole('textbox')).toBeDisabled();
-  });
+    rerender(<Input size="md" />)
+    expect(screen.getByRole('textbox')).toBeInTheDocument()
 
-  it('renders with price format', () => {
-    render(<TestComponent formatPrice />);
-    expect(screen.getByTestId('price-icon')).toBeInTheDocument();
-  });
+    rerender(<Input size="lg" />)
+    expect(screen.getByRole('textbox')).toBeInTheDocument()
+  })
 
-  it('renders with different input type', () => {
-    render(<TestComponent type="password" />);
-    expect(screen.getByRole('textbox')).toHaveAttribute('type', 'password');
-  });
+  it('renders with prefix and suffix', () => {
+    render(
+      <Input
+        prefix="$"
+        suffix=".00"
+      />
+    )
+    expect(screen.getByText('$')).toBeInTheDocument()
+    expect(screen.getByText('.00')).toBeInTheDocument()
+  })
 
-  it('applies error styles when there are errors', () => {
-    render(<TestComponent />);
-    const input = screen.getByRole('textbox');
-    expect(input).toHaveClass('border-rose-500');
-  });
-});
+  it('calls onChange when typed', () => {
+    const onChange = jest.fn()
+    render(<Input placeholder="Type..." onChange={onChange} />)
+    fireEvent.change(screen.getByPlaceholderText('Type...'), {
+      target: { value: 'Hello' },
+    })
+    expect(onChange).toHaveBeenCalledTimes(1)
+  })
+
+  it('is disabled', () => {
+    render(<Input disabled />)
+    expect(screen.getByRole('textbox')).toBeDisabled()
+  })
+})

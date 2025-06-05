@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth/options';
 import prisma from '@/lib/prismadb';
-import mockUsers from '@/data/mockUsers';
+import mockUsers from '@/mocks/data/mockUsers';
 
 export async function getSession() {
   return await getServerSession(authOptions);

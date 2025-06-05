@@ -1,0 +1,54 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    transition: all 0.2s;
+    background: white;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .prefix,
+  .suffix {
+    padding: 0 0.5rem;
+    color: #6b7280;
+  }
+  
+  .sm {
+    height: 2rem;
+    font-size: 0.875rem;
+  }
+  
+  .md {
+    height: 2.5rem;
+  }
+  
+  .lg {
+    height: 3rem;
+    font-size: 1.125rem;
+  }
+  
+  .default {
+    border-color: #d1d5db;
+  }
+  
+  .error {
+    border-color: #dc2626;
+  }
+  
+  .success {
+    border-color: #16a34a;
+  }
+  
+  .wrapper:has(.input:disabled) {
+    background: #f3f4f6;
+    cursor: not-allowed;
+  }
+  

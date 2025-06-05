@@ -1,6 +1,6 @@
 import prisma from '@/lib/prismadb';
-import mockReservations from '@/data/mockReservations';
-import mockListings from '@/data/mockListings';
+import mockReservations from '@/mocks/data/mockReservations';
+import mockListings from '@/mocks/data/mockListings';
 
 interface IParams {
   listingId?: string;
@@ -15,20 +15,20 @@ export default async function useReservations(params: IParams) {
     if (process.env.USE_MOCK_DATA === 'true') {
       let reservations = mockReservations;
       if (listingId) {
-        reservations = reservations.filter((r) => r.listingId === listingId);
+        reservations = reservations.filter((r: any) => r.listingId === listingId);
       }
       if (userId) {
-        reservations = reservations.filter((r) => r.userId === userId);
+        reservations = reservations.filter((r: any) => r.userId === userId);
       }
       if (authorId) {
-        reservations = reservations.filter((r) => {
-          const listing = mockListings.find((l) => l.id === r.listingId);
+        reservations = reservations.filter((r: any) => {
+          const listing = mockListings.find((l: any) => l.id === r.listingId);
           return listing && listing.userId === authorId;
         });
       }
       return reservations
-        .map((r) => {
-          const listing = mockListings.find((l) => l.id === r.listingId);
+        .map((r: any) => {
+          const listing = mockListings.find((l: any) => l.id === r.listingId);
           if (!listing) return null;
           return {
             ...r,
@@ -62,7 +62,7 @@ export default async function useReservations(params: IParams) {
       },
     });
 
-    const safeReservations = reservations.map((reservation) => ({
+    const safeReservations = reservations.map((reservation: any) => ({
       ...reservation,
       createdAt: reservation.createdAt.toISOString(),
       startDate: reservation.startDate.toISOString(),
