@@ -1,6 +1,6 @@
 import prisma from '@/lib/prismadb';
 import mockReservations from '@/mocks/data/mockReservations';
-import mockListings from '@/mocks/data/mockListings';
+import { listings } from '@/mocks/data/listings';
 
 interface IParams {
   listingId?: string;
@@ -22,13 +22,13 @@ export default async function useReservations(params: IParams) {
       }
       if (authorId) {
         reservations = reservations.filter((r: any) => {
-          const listing = mockListings.find((l: any) => l.id === r.listingId);
-          return listing && listing.userId === authorId;
+          const listing = listings.find((l: any) => l.id === r.listingId);
+          return listing && listing.host.name === authorId;
         });
       }
       return reservations
         .map((r: any) => {
-          const listing = mockListings.find((l: any) => l.id === r.listingId);
+          const listing = listings.find((l: any) => l.id === r.listingId);
           if (!listing) return null;
           return {
             ...r,

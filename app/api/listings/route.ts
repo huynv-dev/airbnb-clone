@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server';
 
 import prisma from '@/lib/prismadb';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import { listings } from '@/mocks/data/listings';
+
+export async function GET() {
+  // Trả về mock data listings
+  return NextResponse.json({ data: { items: listings } });
+}
 
 export async function POST(request: Request) {
   const currentUser = await useCurrentUser();

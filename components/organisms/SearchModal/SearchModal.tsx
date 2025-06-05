@@ -12,7 +12,7 @@ import Counter from '@/components/atoms/Counter';
 import { Heading } from '@/components/atoms';
 import CountrySelect from '@/components/atoms/CountrySelect';
 import useSearchModal from '@/hooks/useSearchModal';
-import { countries } from '@/data/countries';
+import { countries } from '@/mocks/data/countries';
 
 enum STEPS {
   LOCATION = 0,

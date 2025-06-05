@@ -12,7 +12,7 @@ import Modal from '../Modal';
 import CategoryInput from '@/components/atoms/CategoryInput';
 import { Input } from '@/components/atoms';
 import Heading from '@/components/atoms/Heading';
-import { categories } from '@/data/categories';
+import { categories } from '@/mocks/data/categories';
 import Counter from '@/components/atoms/Counter';
 import ImageUpload from '@/components/atoms/ImageUpload';
 
@@ -192,18 +192,14 @@ const RentModal = () => {
           id="title"
           label="Title"
           disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
+          {...register('title', { required: true })}
         />
         <hr />
         <Input
           id="description"
           label="Description"
           disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
+          {...register('title', { required: true })}
         />
       </div>
     );
@@ -216,12 +212,10 @@ const RentModal = () => {
         <Input
           id="price"
           label="Price"
-          formatPrice
+          
           type="number"
           disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
+          {...register('price', { required: true })}
         />
       </div>
     );

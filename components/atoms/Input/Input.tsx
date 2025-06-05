@@ -6,6 +6,7 @@ export type InputVariant = 'default' | 'error' | 'success'
 export type InputSize = 'sm' | 'md' | 'lg'
 
 export type InputProps = {
+  label?: React.ReactNode
   variant?: InputVariant
   size?: InputSize
   prefix?: React.ReactNode
@@ -15,6 +16,7 @@ export type InputProps = {
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
+      label,
       variant = 'default',
       size = 'md',
       prefix,
@@ -25,10 +27,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     return (
-      <div className={cn(styles.wrapper, styles[size], styles[variant], className)}>
-        {prefix && <span className={styles.prefix}>{prefix}</span>}
-        <input ref={ref} className={styles.input} {...props} />
-        {suffix && <span className={styles.suffix}>{suffix}</span>}
+      <div>
+        {label && <label className={styles.label}>{label}</label>}
+        <div className={cn(styles.wrapper, styles[size], styles[variant], className)}>
+          {prefix && <span className={styles.prefix}>{prefix}</span>}
+          <input ref={ref} className={styles.input} {...props} />
+          {suffix && <span className={styles.suffix}>{suffix}</span>}
+        </div>
       </div>
     )
   }

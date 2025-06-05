@@ -1,98 +1,21 @@
-import prisma from '@/lib/prismadb';
-import mockListings from '@/mocks/data/mockListings';
+import useSWR from 'swr';
+import type { Listing } from '@/types/listing';
 
-export interface IListingsParams {
-  userId?: string;
-  guestCount?: number;
-  roomCount?: number;
-  bathroomCount?: number;
-  startDate?: string;
-  endDate?: string;
-  locationValue?: string;
-  category?: string;
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+interface UseListingsParams {
+  filter?: string;
 }
 
-export default async function useListings(params: IListingsParams) {
-  if (process.env.USE_MOCK_DATA === 'true') {
-    return mockListings;
-  }
-  try {
-    const {
-      userId,
-      roomCount,
-      guestCount,
-      bathroomCount,
-      locationValue,
-      startDate,
-      endDate,
-      category,
-    } = params;
+export function useListings(params?: UseListingsParams) {
+  const { data, error, isLoading } = useSWR<{ data: { items: Listing[] } }>(
+    params?.filter ? `/api/listings?filter=${params.filter}` : '/api/listings',
+    fetcher
+  );
 
-    let query: any = {};
-
-    if (userId) {
-      query.userId = userId;
-    }
-
-    if (category) {
-      query.category = category;
-    }
-
-    if (roomCount) {
-      query.roomCount = {
-        gte: +roomCount,
-      };
-    }
-
-    if (guestCount) {
-      query.guestCount = {
-        gte: +guestCount,
-      };
-    }
-
-    if (bathroomCount) {
-      query.bathroomCount = {
-        gte: +bathroomCount,
-      };
-    }
-
-    if (locationValue) {
-      query.locationValue = locationValue;
-    }
-
-    if (startDate && endDate) {
-      query.NOT = {
-        reservations: {
-          some: {
-            OR: [
-              {
-                endDate: { gte: startDate },
-                startDate: { lte: startDate },
-              },
-              {
-                startDate: { lte: endDate },
-                endDate: { gte: endDate },
-              },
-            ],
-          },
-        },
-      };
-    }
-
-    const listings = await prisma.listing.findMany({
-      where: query,
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-
-    const safeListings = listings.map((listing: any) => ({
-      ...listing,
-      createdAt: listing.createdAt.toISOString(),
-    }));
-
-    return safeListings;
-  } catch (error: any) {
-    throw new Error(error);
-  }
+  return {
+    listings: data?.data?.items || [],
+    isLoading,
+    error
+  };
 }

@@ -1,11 +1,11 @@
 import prisma from '@/lib/prismadb';
 import useCurrentUser from './useCurrentUser';
-import mockListings from '@/mocks/data/mockListings';
+import { listings } from '@/mocks/data/listings';
 
 export default async function useFavorites() {
   if (process.env.USE_MOCK_DATA === 'true') {
     // Giả lập user đã thích tất cả mock listings
-    return mockListings;
+    return listings;
   }
   try {
     const currentUser = await useCurrentUser();

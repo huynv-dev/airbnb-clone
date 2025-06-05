@@ -1,5 +1,5 @@
 import prisma from '@/lib/prismadb';
-import mockListings from '@/mocks/data/mockListings';
+import { listings } from '@/mocks/data/listings';
 import mockUsers from '@/mocks/data/mockUsers';
 
 interface IParams {
@@ -11,9 +11,9 @@ export default async function useListing(params: IParams) {
     const { listingId } = params;
 
     if (process.env.USE_MOCK_DATA === 'true') {
-      const listing = mockListings.find((l: any) => l.id === listingId);
+      const listing = listings.find((l: any) => l.id === listingId);
       if (!listing) return null;
-      const user = mockUsers.find((u: any) => u.id === listing.userId);
+      const user = mockUsers.find((u: any) => u.name === listing.host.name);
       if (!user) return null;
       return {
         ...listing,

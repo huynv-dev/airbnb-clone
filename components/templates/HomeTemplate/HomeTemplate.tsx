@@ -1,12 +1,12 @@
 'use client';
 
-import { useRooms } from '@/hooks/useRooms';
-import { RoomList } from '@/components/organisms/RoomList';
+import { useListings } from '@/hooks/useListings';
+import { ListingList } from '@/components/organisms';
 import { Typography } from '@/components/atoms/Typography/Typography';
 import { RoomListSkeleton } from '@/components/molecules';
 
 export const HomeTemplate = () => {
-  const { rooms, isLoading, error } = useRooms();
+  const { listings, isLoading, error } = useListings();
 
   return (
     <div>
@@ -24,7 +24,7 @@ export const HomeTemplate = () => {
         ) : isLoading ? (
           <RoomListSkeleton />
         ) : (
-          <RoomList rooms={rooms || []} />
+          <ListingList listings={listings || []} />
         )}
       </div>
     </div>
