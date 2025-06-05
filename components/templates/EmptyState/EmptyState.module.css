@@ -1,7 +1,0 @@
-.container {
-  @apply flex h-[60vh] flex-col items-center justify-center gap-2;
-}
-
-.buttonWrapper {
-  @apply mt-4;
-}
